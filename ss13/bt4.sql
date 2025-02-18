@@ -24,7 +24,7 @@ INSERT INTO courses (course_name, available_seats) VALUES
 ('Lập trình C', 25), 
 ('Cơ sở dữ liệu', 22);
 
-
+set autocommit = 0;
 delimiter // 
 	create procedure sub_courses(p_student_name varchar(50),p_course_name VARCHAR(100) )
     begin
@@ -42,6 +42,7 @@ delimiter //
 				where course_name = p_course_name;
 				 commit;
 			else 
+				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'lỗi';
 				rollback;
 			end if;
 		end if;

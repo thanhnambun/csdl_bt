@@ -7,8 +7,8 @@ create table enrollments_history (
 	FOREIGN KEY (student_id) REFERENCES students(student_id),
     FOREIGN KEY (course_id) REFERENCES courses(course_id)
 );
+set autocommit = 0;
 DELIMITER //
-
 CREATE PROCEDURE subj_courses(
     IN p_student_name VARCHAR(50), 
     IN p_course_name VARCHAR(100)
