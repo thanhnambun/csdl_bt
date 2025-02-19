@@ -1,0 +1,34 @@
+viết so sánh 2 bẳng  myisam với cả inno:
+1. Kiến trúc lưu trữ
+MyISAM: Lưu trữ dữ liệu trên đĩa thành 3 file (.frm, .MYD, .MYI).
+InnoDB: Dữ liệu lưu theo mô hình clustered index và hỗ trợ buffer pool giúp tăng tốc truy vấn.
+2. Hỗ trợ giao dịch
+MyISAM: Không hỗ trợ giao dịch, nếu có lỗi thì dữ liệu không thể rollback.
+InnoDB: Hỗ trợ giao dịch với COMMIT, ROLLBACK, giúp đảm bảo tính toàn vẹn dữ liệu.
+3. Kiểm soát khóa (Locking)
+MyISAM: Chỉ hỗ trợ khóa bảng → Nếu một dòng bị sửa, cả bảng bị khóa, gây chậm khi nhiều người truy cập.
+InnoDB: Hỗ trợ khóa dòng → Chỉ khóa dòng bị sửa, giúp cải thiện hiệu suất khi có nhiều thao tác đồng thời.
+4. Tốc độ xử lý
+MyISAM: Tốc độ đọc nhanh hơn do không có các cơ chế kiểm soát giao dịch.
+InnoDB: Ghi nhanh hơn khi có nhiều thao tác đồng thời do khóa dòng.
+5. Hỗ trợ khóa ngoại (Foreign Key)
+MyISAM: Không hỗ trợ khóa ngoại, không thể ràng buộc giữa các bảng.
+InnoDB: Hỗ trợ khóa ngoại, giúp duy trì toàn vẹn dữ liệu giữa các bảng.
+6. Khả năng phục hồi dữ liệu
+MyISAM: Nếu server bị crash, dữ liệu có thể bị mất hoặc hỏng.
+InnoDB: Hỗ trợ crash recovery, giúp phục hồi dữ liệu an toàn hơn.
+
+
+
+1. Tủ MyISAM (Nhanh nhưng không an toàn lắm)
+Đây là một cái tủ không có khóa.
+Khi bạn muốn lấy đồ chơi, bạn có thể mở cửa tủ thật nhanh và lấy ra ngay.
+Nhưng nếu có nhiều bạn cùng muốn lấy đồ chơi một lúc, thì phải xếp hàng vì chỉ có một người mở tủ được mỗi lần.
+Nếu chẳng may ai đó đẩy ngã tủ, tất cả đồ chơi có thể rơi ra và bị mất, không thể lấy lại được!
+2. Tủ InnoDB (Chậm hơn nhưng an toàn)
+Đây là một cái tủ có khóa và có nhiều ngăn nhỏ bên trong.
+Mỗi bạn có một chìa khóa nhỏ để mở đúng ngăn của mình, nên nhiều bạn có thể lấy đồ cùng lúc mà không cần xếp hàng lâu.
+Nếu chẳng may có ai đó đẩy ngã tủ, tủ có cơ chế tự khóa, giúp đồ chơi bên trong không bị mất.
+Kết luận
+Tủ MyISAM giống như cách lưu trữ dữ liệu nhanh nhưng dễ mất nếu có sự cố.
+Tủ InnoDB thì chậm hơn một chút nhưng bảo vệ dữ liệu tốt hơn và cho phép nhiều người sử dụng cùng lúc.
